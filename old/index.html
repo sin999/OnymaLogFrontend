@@ -1,0 +1,55 @@
+<html ng-app="loggerApp"><head>
+<script src="//cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="loggerApp.js"></script>
+<script src="loggerCtrl.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sin.css" />
+</head>
+<body ng-controller="loggerCtrl">
+<a>test message one</a>
+<div id="chat"></div>
+<table>
+    <thead>
+          <tr><th colspan="4">Log flow</th></tr>
+    </thead>
+        <tbody>
+
+            <tr >
+                <td>index</td>
+                <td>User-Name</td>
+                <td>client-mac-address</td>
+                <td>circuit-id-tag</td>
+                
+            </tr>
+            <tr >
+                <td></td>
+                <td><input type="text" name="userName" ng-model="userName"></td>
+                <td><input type="text" name="userName" ng-model="clientMac"></td>
+                <td><input type="text" name="userName" ng-model="circuitId"></td>
+            </tr>
+            <tr>
+        	<td>
+        	    <input type="button" value="Subscribe!" ng-click="subscribe()" />
+        	</td>
+        	<td>
+        	    <input type="button" value="Clear log!" ng-click="clearLog()" />
+        	</td>
+            </tr>
+
+            <tr ng-repeat="mes in messages" ng-class="mes.response.direction=='OUT[2]'?'success':'fail'">
+                <td>{{$index + 1}}</td>
+                <td>{{mes.request.datetime}}</td>
+                <td>{{mes.request.message["User-Name"]}}</td>
+                <td>{{mes.request.message["Password"]}}</td>
+                <td>{{mes.request.message["client-mac-address"]}}</td>
+                <td>{{mes.request.message["circuit-id-tag"]}}</td>
+                <td>{{mes.request.message["Framed-IP-Address"]}}</td>
+                <td>{{mes.response.message["Reply-Message"]}}</td>
+                <td>{{mes.response.direction}}</td>
+                
+            </tr>
+        </tbody>        
+</table>
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿
+<html ng-app="loggerApp"><head>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="loggerApp.js"></script>
+<script src="loggerCtrl.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sin.css" />
+<title>AP лог</title>
+</head>
+<body ng-controller="loggerCtrl">
+<!--<a>test message one</a>-->
+<div id="chat"></div>
+<table >
+    <thead>
+          <tr><th colspan="9">AP логгинг</th></tr>
+    </thead>
+        <tbody>
+			<td colspan="9">
+        	    <input type="button" value="Поиск по параметрам" ng-click="subscribe()" />
+        	    <input type="button" value="Очистить лог" ng-click="clearLog()" />
+        	    <input type="button" value="Остановить" ng-click="subscribe(true)" />
+        	</td>
+            <tr >
+               <th width="20"></th> <th width="200"><select name="ap_name" id="ap_name_option" style="width:100%;"  ng-options="o in apArr" ng-model="selectedOption" ng-change="subscribe()"></select> </th>
+				<th width="70">Время</th><th width="120"><input type="text" name="userName" ng-model="userName" placeholder="Имя пользователя" style="width:100%;" /></th>
+				<th width="100">Пароль</th><th width="100" ><input type="text" name="userName" ng-model="clientMac" placeholder="Mac\FRIp адрес" /></th>
+				<th ><input type="text" name="userName" ng-model="circuitId" placeholder="NES пользователя" style="width:100%;" /></th>
+				<th width="120">Рез-т</th><th>[X]</th>
+            </tr>
+            <tr>
+
+            </tr>
+
+            <tr ng-repeat="mes in messages" ng-class="mes.response.direction=='OUT[2]'?'success':'fail'">
+                <td>{{$index + 1}}</td>
+                <td>{{mes.request.sourceAP}}</td>
+                <td>{{mes.request.datetime.split(' ')[2]}}</td>
+                <td>{{mes.request.message["User-Name"].substring(0,15)}}</td>
+                <td>{{(!mes.request.message["Password"] ? "---" : mes.request.message["Password"])}}</td>
+                <td><a href="http://standards.ieee.org/cgi-bin/ouisearch?{{mes.request.message['client-mac-address'].replace('.','').substring(0,6)}}" title="производитель" target="_blank">{{((mes.request.message['client-mac-address'] != '') ? (mes.request.message['client-mac-address']) : mes.request.message['Framed-IP-Address'])}}</a></td>
+                <td>{{mes.request.message["circuit-id-tag"]}}</td>
+                <td>{{(!mes.response.message["Reply-Message"] ? "OK" : mes.response.message["Reply-Message"])}}</td>
+                <td>{{mes.response.direction}}</td>
+            </tr>
+        </tbody>        
+</table>
+</body>
+</html>

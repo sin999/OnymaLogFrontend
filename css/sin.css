@@ -1,0 +1,40 @@
+.success { 
+background:#C2FFC2;
+}
+
+.fail {
+   
+	background:#FFDDDE;
+}
+a{color:#090974; text-decoration:underline;}
+body
+{ font-family: Geneva, Arial, Helvetica, sans-serif; }
+table {
+	border-collapse: collapse; /*убираем пустые промежутки между ячейками*/
+	border: 1px solid grey; /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
+	width:100%;
+}
+th {
+	border: 1px solid grey; 
+	padding:2px;
+	background:#E8E8E8;
+	text-align:center;
+}
+
+td {
+	border: 1px solid grey;
+	padding:2px;
+	text-align:center;
+}
+
+td {
+	border: 1px solid grey;
+	padding:2px;
+}
+
+input {
+	font-size: 13px;
+	padding: 4px;
+	border: 1px solid grey;
+	background: #F6F6f6;
+}
